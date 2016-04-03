@@ -30,8 +30,8 @@ curl "https://raw.githubusercontent.com/msadig/Auto-Backuper/master/backuper.sh"
 To configure:
 
 ```bash
- $ nano ./backup.conf
  $ bash ./backuper.sh setup
+ $ nano ./backup.conf
 ```
 
 The first time you run `./backuper.sh setup`, you'll be guided through a wizard in order to configure access to your Dropbox. For more info visit - https://github.com/andreafabrizi/Dropbox-Uploader
@@ -61,6 +61,10 @@ To backup only today's files and directories and upload to Dropbox.
 
 * **weekly**  
 To backup all files and directories and upload to Dropbox.
+
+
+* **cronit**  
+To set up CRON jobs
 
 
 

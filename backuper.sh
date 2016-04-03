@@ -30,6 +30,7 @@ function usage
     echo -e "\nCommands:"
 
     echo -e "\t setup		For setting up the script's configuration"
+    echo -e "\t cronit		To set up CRON jobs"
     echo -e "\t database	To backup database and upload to Dropbox"
     echo -e "\t daily		To backup only today's files and directories and upload to Dropbox"
     echo -e "\t weekly		To backup all files and directories and upload to Dropbox"
@@ -81,9 +82,9 @@ EOF
 # General setup
 setup() {
 
-	setup_dropbox
-
-	if [ "$CRONED" = "Y" ]; then
+	# If wants create Cron jobs to backup
+	read -p "Do you wish to create CRON jobs? [y/N]: " cron_it
+	if [ "$cron_it" == "y" ] ; then
 		setup_crons
 	fi
 
@@ -93,6 +94,9 @@ setup() {
 		sudo mkdir -p $DBBACKUP_DIR
 		sudo chown $DB_USERNAME $DBBACKUP_DIR
 	fi
+
+	# Dropbox
+	setup_dropbox
 }
 
 
@@ -207,6 +211,12 @@ case $COMMAND in
 		setup
 
 	;;
+
+	cronit)
+
+        setup_crons
+
+    ;;
 
 	database)
 

@@ -11,7 +11,12 @@ ERROR_STATUS=0
 VERSION="0.1"
 
 # Get config
-. $CURRENT_PATH/backup.conf
+if [ ! -f ./backup.conf ]; then	
+	curl "https://raw.githubusercontent.com/msadig/Auto-Backuper/master/backup.conf" -o backup.conf
+else
+	. $CURRENT_PATH/backup.conf
+fi
+
 
 
 
@@ -75,10 +80,6 @@ EOF
 
 # General setup
 setup() {
-
-	if [ ! -f ./backup.conf ]; then	
-		curl "https://raw.githubusercontent.com/msadig/Auto-Backuper/master/backup.conf" -o backup.conf
-	fi
 
 	setup_dropbox
 

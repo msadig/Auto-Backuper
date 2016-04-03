@@ -81,6 +81,7 @@ To backup all files and directories and upload to Dropbox.
 
 ## Credits
 
- If you want to support this project, please consider donating:
- * PayPal: andrea.fabrizi@gmail.com
- * BTC: 1JHCGAMpKqUwBjcT3Kno9Wd5z16K6WKPqG
+ * https://github.com/msadig/Dropbox-Uploader
+ * http://www.defitek.com/blog/2010/01/06/a-simple-yet-effective-postgresql-backup-script/#codesyntax_1
+ * https://www.odoo.com/forum/help-1/question/how-to-setup-a-regular-postgresql-database-backup-4728
+ * https://gist.github.com/matthewlehner/3091458

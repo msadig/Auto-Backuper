@@ -52,7 +52,6 @@ function setup_dropbox {
 	chmod +x dropbox_uploader.sh # make executable
 	./dropbox_uploader.sh # setup Dropbox
 	chmod +r $HOME/.dropbox_uploader
-	echo -e "\nDROPBOX_CONF="$HOME"/.dropbox_uploader" >> $CURRENT_PATH/backup.conf
 }
 
 # Setup the CRONs
@@ -81,6 +80,7 @@ EOF
 
 # General setup
 setup() {
+	echo -e "\nDROPBOX_CONF="$HOME"/.dropbox_uploader" >> $CURRENT_PATH/backup.conf
 	. $CURRENT_PATH/backup.conf
 
 	# If wants create Cron jobs to backup

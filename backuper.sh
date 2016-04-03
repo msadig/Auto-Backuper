@@ -11,7 +11,7 @@ ERROR_STATUS=0
 VERSION="0.1"
 
 # Get config
-if [ ! -f ./backup.conf ]; then	
+if [ ! -f $CURRENT_PATH/backup.conf ]; then	
 	curl "https://raw.githubusercontent.com/msadig/Auto-Backuper/master/backup.conf" -o backup.conf
 else
 	. $CURRENT_PATH/backup.conf

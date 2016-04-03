@@ -81,6 +81,7 @@ EOF
 
 # General setup
 setup() {
+	. $CURRENT_PATH/backup.conf
 
 	# If wants create Cron jobs to backup
 	read -p "Do you wish to create CRON jobs? [y/N]: " cron_it

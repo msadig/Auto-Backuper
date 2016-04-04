@@ -47,11 +47,11 @@ bash ./backuper.sh COMMAND
 
 **Available commands:**
 
-* **setup** 
+* **setup**  
 Sets up script  
 
 
-* **database**
+* **database**  
 Backs up PostgreSQL database and uploads to the Dropbox (to the described folder in `backup.conf`).
 
 

@@ -173,7 +173,11 @@ bkp_weekly() {
 		rm -rf $BACKUP_FILE
 	else
 		# Upload to Dropbox
-		$CURRENT_PATH/dropbox_uploader.sh -qf $DROPBOX_CONF upload $BKP_DIRS $DROPBOX_DIR
+		for DIR in $BKP_DIRS
+        do
+            NEWDIR=$(cd $DIR/..; pwd)
+    		$CURRENT_PATH/dropbox_uploader.sh -qf $DROPBOX_CONF upload $DIR ${DROPBOX_DIR}${NEWDIR}/
+        done
 	fi
 	bkp_cleanup "week"
 }

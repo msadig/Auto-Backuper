@@ -137,7 +137,6 @@ database_clean() {
 
 # Daily backups
 bkp_daily() {
-	echo 'Backs up'
 	if [ "$ARCHIVED" = "Y" ]; then
 
 		BACKUP_FILE=$TMP_DIR/bkp_daily_${PREFIX}_$BACKUP_DATE.tar.gz

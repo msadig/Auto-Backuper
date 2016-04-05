@@ -151,7 +151,7 @@ bkp_daily() {
 		# clear temp file
 		rm -rf $BACKUP_FILE
 	else
-		find $BKP_DIRS -type f -prune -mtime -1 | xargs -I {} $CURRENT_PATH/dropbox_uploader.sh -qf $DROPBOX_CONF upload "{}" ${DROPBOX_DIR}$(basename "{}")
+		find $BKP_DIRS -type f -prune -mtime -1 | xargs -I {} $CURRENT_PATH/dropbox_uploader.sh -qsf $DROPBOX_CONF upload "{}" ${DROPBOX_DIR}$(basename "{}")
 		# find $BKP_DIRS -type f -prune -mtime -1 | xargs -I {} echo $(dirname "{}")
 	fi
 	bkp_cleanup "day"
@@ -175,7 +175,7 @@ bkp_weekly() {
 		for DIR in $BKP_DIRS
         do
             NEWDIR=$(cd $DIR/..; pwd)
-    		$CURRENT_PATH/dropbox_uploader.sh -qf $DROPBOX_CONF upload $DIR ${DROPBOX_DIR}${NEWDIR}/
+    		$CURRENT_PATH/dropbox_uploader.sh -qsf $DROPBOX_CONF upload $DIR ${DROPBOX_DIR}${NEWDIR}/
         done
 	fi
 	bkp_cleanup "week"

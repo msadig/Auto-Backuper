@@ -68,6 +68,11 @@ To set up CRON jobs
 
 
 
+* **getmail**  
+Get mail.sh file
+
+
+
 
 **Examples:**
 ```bash
@@ -75,6 +80,18 @@ To set up CRON jobs
     bash ./backuper.sh database
     bash ./backuper.sh daily
     bash ./backuper.sh weekly
+```
+
+
+## Mail feature
+
+If you want to configure crontab send mail when task fails, then please follow the step-by-step instructions below:
+
+
+```bash
+ $ bash ./backuper.sh getmail
+ $ bash ./mail.sh setup
+ $ bash ./mail.sh cronmail
 ```
 
 ## Tested Environments

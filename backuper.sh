@@ -241,6 +241,14 @@ case $COMMAND in
 
     ;;
 
+	getmail)
+
+        if [ ! -f "$CURRENT_PATH/mail.sh" ]; then	
+			curl "https://raw.githubusercontent.com/msadig/Auto-Backuper/master/mail.sh" -o mail.sh
+		fi
+
+    ;;
+
     *)
 
         if [[ $COMMAND != "" ]]; then

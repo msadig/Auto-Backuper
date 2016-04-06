@@ -4,10 +4,12 @@
 # - http://askubuntu.com/a/12933
 # - http://www.howtogeek.com/51819/how-to-setup-email-alerts-on-linux-using-gmail/
 # - http://tombuntu.com/index.php/2008/10/21/sending-email-from-your-system-with-ssmtp/
+# - https://wiki.archlinux.org/index.php/SSMTP
 
-# echo -e "From: Keyfiyyet Server <sender@gmail.com>\nSubject: Error on the server \nTest message from Linux server using ssmtp" | ssmtp -vvv recipient@gmail.com
+# echo -e "From: Server Name <sender@gmail.com>\nSubject: Error on the server \nTest message from Linux server using ssmtp" | ssmtp -vvv recipient@gmail.com
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+CURRENT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ERROR_STATUS=0
 
 install_ssmtp (){
@@ -26,7 +28,7 @@ setup_mail () {
         echo -ne " # Email address: "
         read MAIL
 
-        echo -ne " # Password address: "
+        echo -ne " # Password of mail: "
         read PSW
 
         #Checking the loaded data
@@ -52,6 +54,16 @@ setup_mail () {
 	echo "FromLineOverride=YES" >> "$CONFIG_FILE"
 	echo "UseTLS=YES" >> "$CONFIG_FILE"
 
+
+	if [ ! $(getent group ssmtp) ]; then
+		SMTP_PATH=$(which ssmtp)
+		groupadd ssmtp
+		chown :ssmtp $CONFIG_FILE
+		chown :ssmtp $SMTP_PATH
+		chmod 640 $CONFIG_FILE
+		chmod g+s $SMTP_PATH
+	fi
+
 	echo -ne "\n***************************************************************************************************\n"
 	echo -ne "\n sSMTP successfully installed. Now please follow the instruction below to set up recipient mail:\n\n"
 	echo -ne " 1) Open the cron job list with command: crontab -e\n"
@@ -61,18 +73,48 @@ setup_mail () {
     exit $ERROR_STATUS
 }
 
+setup_cron_mailto() {
+	local USER=$1
+	echo "=> Recipient mail for the $USER's crontab: "
+	read -e MAIL
+	if [[ $MAIL != "" ]]; then
+		sudo crontab -u $USER -l > ~/crontabs.txt
+		sed -i '1s/^/MAILTO='$MAIL'\n/' ~/crontabs.txt
+		sed -i -- 's/>\/dev\/null 2>&1//g' ~/crontabs.txt
+		sed -i -- 's/>\/dev\/null//g' ~/crontabs.txt
+		sudo crontab -u $USER ~/crontabs.txt
+		rm ~/crontabs.txt
+	fi
+}
+
+update_crontabs() {
+	. $CURRENT_PATH/backup.conf
+	echo -en "\n > Set mail for file backups \n\n"
+	setup_cron_mailto $(whoami)
+	echo -en "\n > Set mail for database backups \n\n"
+	setup_cron_mailto $DB_USERNAME
+}
+
+
 ################
 #### START  ####
 ################
 
 COMMAND=${@:$OPTIND:1}
 
+
 #CHECKING PARAMS VALUES
 case $COMMAND in
 	setup)
 
 		install_ssmtp
-		setup_mail
+		setup_mail	
+
+	;;
+
+	cronmail)
+
+		update_crontabs		
 
 	;;
 

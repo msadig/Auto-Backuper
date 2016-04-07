@@ -90,7 +90,7 @@ If you want to configure crontab send mail when task fails, then please follow t
 
 ```bash
  $ bash ./backuper.sh getmail
- $ bash ./mail.sh setup
+ $ sudo bash ./mail.sh setup
  $ bash ./mail.sh cronmail
 ```
 

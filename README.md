@@ -15,6 +15,8 @@ It's written in BASH scripting language and only needs **cURL**.
 
 ## Getting started
 
+**WARNING**: to be able run crons with `postgres` user, **DO NOT** place this script in `/root` directory!
+
 First, clone the repository using git (recommended):
 
 ```bash
